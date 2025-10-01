@@ -1,5 +1,8 @@
 ---
 import '../styles/global.css';
+import { getCollection } from 'astro:content';
+
+const inventory = await getCollection('inventory');
 ---
 
 <html lang="en">
@@ -67,31 +70,17 @@ import '../styles/global.css';
 						</ul>
 					</div>
 				</div>
-				<div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-					<a href="mailto:supply@emig.family?subject=📦" class="aspect-square bg-white dark:bg-slate-800 rounded-xl transition-all duration-300 hover:-translate-y-2 flex items-center justify-center border border-slate-100 dark:border-slate-700">
-						<span class="text-5xl">📦</span>
-					</a>
-					<a href="mailto:supply@emig.family?subject=🛠️" class="aspect-square bg-white dark:bg-slate-800 rounded-xl transition-all duration-300 hover:-translate-y-2 flex items-center justify-center border border-slate-100 dark:border-slate-700">
-						<span class="text-5xl">🛠️</span>
-					</a>
-					<a href="mailto:supply@emig.family?subject=🚜" class="aspect-square bg-white dark:bg-slate-800 rounded-xl transition-all duration-300 hover:-translate-y-2 flex items-center justify-center border border-slate-100 dark:border-slate-700">
-						<span class="text-5xl">🚜</span>
-					</a>
-					<a href="mailto:supply@emig.family?subject=🪑" class="aspect-square bg-white dark:bg-slate-800 rounded-xl transition-all duration-300 hover:-translate-y-2 flex items-center justify-center border border-slate-100 dark:border-slate-700">
-						<span class="text-5xl">🪑</span>
-					</a>
-					<a href="mailto:supply@emig.family?subject=🖨️" class="aspect-square bg-white dark:bg-slate-800 rounded-xl transition-all duration-300 hover:-translate-y-2 flex items-center justify-center border border-slate-100 dark:border-slate-700">
-						<span class="text-5xl">🖨️</span>
-					</a>
-					<a href="mailto:supply@emig.family?subject=🪚" class="aspect-square bg-white dark:bg-slate-800 rounded-xl transition-all duration-300 hover:-translate-y-2 flex items-center justify-center border border-slate-100 dark:border-slate-700">
-						<span class="text-5xl">🪚</span>
-					</a>
-					<a href="mailto:supply@emig.family?subject=🍰" class="aspect-square bg-white dark:bg-slate-800 rounded-xl transition-all duration-300 hover:-translate-y-2 flex items-center justify-center border border-slate-100 dark:border-slate-700">
-						<span class="text-5xl">🍰</span>
-					</a>
-					<a href="mailto:supply@emig.family?subject=🧁" class="aspect-square bg-white dark:bg-slate-800 rounded-xl transition-all duration-300 hover:-translate-y-2 flex items-center justify-center border border-slate-100 dark:border-slate-700">
-						<span class="text-5xl">🧁</span>
-					</a>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					{inventory.map((item) => (
+						<a href={`/inventory/${item.slug}`} class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700 block">
+							<img src={item.data.images[0]} alt={item.data.title} class="w-full h-48 object-cover" />
+							<div class="p-6">
+								<h3 class="text-xl font-semibold mb-2 text-slate-900 dark:text-slate-100">{item.data.title}</h3>
+								<p class="text-slate-600 dark:text-slate-300 mb-4">{item.data.description}</p>
+								<span class="text-blue-600 dark:text-blue-400 font-medium">View Details →</span>
+							</div>
+						</a>
+					))}
 				</div>
 			</section>
 
