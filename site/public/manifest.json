@@ -1,20 +1,9 @@
 {
-  "name": "Emig Supply",
-  "short_name": "Emig Supply",
-  "description": "Your source for locally-made and locally-sourced items",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#3b82f6",
-  "icons": [
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    }
-  ]
-}</content>
-</xai:function_call"> 
-
-<xai:function_call name="edit">
-<parameter name="filePath">site/src/pages/index.astro
+    "name": "Emig Supply",
+    "short_name": "Emig Supply",
+    "description": "Your source for locally-made and locally-sourced items",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#3b82f6"
+}
