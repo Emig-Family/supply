@@ -5,7 +5,7 @@ import '../../styles/global.css';
 export async function getStaticPaths() {
   const inventory = await getCollection('inventory');
   return inventory.map((item) => ({
-    params: { slug: item.slug },
+    params: { slug: item.id },
   }));
 }
 
