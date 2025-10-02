@@ -6,6 +6,8 @@ export const collections = {
       title: z.string(),
       description: z.string(),
       images: z.array(z.string()),
+      category: z.string().optional(),
+      availability: z.string().optional(),
     }),
   }),
 };
