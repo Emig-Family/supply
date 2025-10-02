@@ -3,6 +3,7 @@ import '../styles/global.css';
 import { getCollection } from 'astro:content';
 
 const inventory = await getCollection('inventory');
+inventory.sort((a, b) => (a.data.order || 1000000) - (b.data.order || 1000000));
 ---
 
 <html lang="en">

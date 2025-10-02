@@ -8,6 +8,7 @@ export const collections = {
       images: z.array(z.string()),
       category: z.string().optional(),
       availability: z.string().optional(),
+      order: z.number().optional(),
     }),
   }),
 };
