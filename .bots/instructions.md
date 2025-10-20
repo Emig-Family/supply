@@ -1,0 +1,1 @@
+- All pull requests titles must use conventional commit format
