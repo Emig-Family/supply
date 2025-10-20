@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
 import '../../styles/global.css';
+import ContactButtons from '../../components/shared/ContactButtons.astro';
 
 export async function getStaticPaths() {
   const inventory = await getCollection('inventory');
@@ -90,9 +91,18 @@ const item = await getEntry('inventory', slug);
           </div>
 
           <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-700">
-            <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">Request This Item</h2>
-            <p class="text-slate-600 dark:text-slate-300 mb-6">Interested in this item? Send us an inquiry and we'll work with you to find the perfect arrangement.</p>
-            <a href={`mailto:supply@emig.family?subject=Inquiry about ${item.data.title}`} class="inline-block w-full text-center bg-blue-600 text-white hover:bg-blue-700 font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:-translate-y-1">Send Inquiry</a>
+					{item.data.availability === 'Sold' ? (<h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">Sold</h2>) : (<h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">Request This Item</h2>)}
+					{item.data.availability === 'Sold' ? (
+						<>
+							<p class="text-slate-600 dark:text-slate-300 mb-6">This item has been sold. If you'd like to be notified about similar items or need help finding an alternative, please contact us.</p>
+							<ContactButtons subject={`Inquiry about similar items to ${item.data.title}`} />
+						</>
+					) : (
+						<>
+							<p class="text-slate-600 dark:text-slate-300 mb-6">Interested in this item? Call us and we'll work with you to find the perfect arrangement.</p>
+							<ContactButtons subject={`Inquiry about ${item.data.title}`} />
+						</>
+					)}
           </div>
         </div>
       </div>

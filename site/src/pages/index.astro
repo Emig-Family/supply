@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { getCollection } from 'astro:content';
+import ContactButtons from '../components/shared/ContactButtons.astro';
 
 const inventory = await getCollection('inventory');
 inventory.sort((a, b) => (a.data.order || 1000000) - (b.data.order || 1000000));
@@ -41,9 +42,9 @@ inventory.sort((a, b) => (a.data.order || 1000000) - (b.data.order || 1000000));
 			<header class="text-center mb-16 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 py-16 px-8 rounded-2xl border border-slate-100 dark:border-slate-700">
 				<h1 class="text-5xl font-extrabold mb-6 tracking-tight text-slate-900 dark:text-slate-100">Emig Supply</h1>
 				<p class="text-xl mb-4 max-w-2xl mx-auto text-slate-700 dark:text-slate-300">Your premier source for locally-made and locally-sourced items, delivered right to your door.</p>
-				<p class="text-sm mb-6 text-slate-600 dark:text-slate-300">Located in Eaton, OH — local delivery within 1 hour.</p>
-					<p class="text-sm mb-4 text-slate-600 dark:text-slate-300">Call us: <a href="tel:+18447216515" class="font-medium text-blue-600 dark:text-blue-400">+1 (844) 721-6515</a></p>
-					<a href="mailto:supply@emig.family" class="inline-block bg-blue-600 text-white hover:bg-blue-700 font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:-translate-y-1">Request Item</a>
+					<p class="text-base mb-6 text-slate-600 dark:text-slate-300">Delivery within a one hour radius of Eaton, OH. We serve Dayton, OH and Richmond, IN.</p>
+
+					<ContactButtons />
 			</header>
 
 			<section class="mb-16">
@@ -95,7 +96,10 @@ inventory.sort((a, b) => (a.data.order || 1000000) - (b.data.order || 1000000));
 				</div>
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{inventory.map((item) => (
-						<a href={`/inventory/${item.id}`} class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700 block">
+						<a href={`/inventory/${item.id}`} class="relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700 block">
+							{item.data.availability === 'Sold' && (
+								<div class="absolute bottom-3 right-3 bg-red-600 text-white text-xs font-bold uppercase py-1 px-3 rounded-full shadow">Sold</div>
+							)}
 							<img src={item.data.images[0]} alt={item.data.title} class="w-full h-48 object-cover" />
 							<div class="p-6">
 								<h3 class="text-xl font-semibold mb-2 text-slate-900 dark:text-slate-100">{item.data.title}</h3>
