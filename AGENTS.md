@@ -2,13 +2,27 @@
 
 ## Project Knowledge
 
-TODO: add summary sentence
+A content-driven static inventory/catalog site built with Astro and TypeScript that renders item pages from YAML content and is deployable via Cloudflare Workers (Wrangler).
 
 **Technology Stack:**
-TODO: add list
+- Astro
+- TypeScript
+- Tailwind CSS
+- Node.js / npm
+- Cloudflare Workers (Wrangler)
+- GitHub Actions (CI)
 
 **Core Features:**
-TODO: add list
+- Content-driven inventory using YAML and `astro:content`
+- Per-item pages with image galleries and modal viewer
+- Static site generation (SSG) with dynamic routing (`[...slug].astro`)
+- Simple request-by-email flow (mailto links)
+- Deployable with Wrangler / Cloudflare Workers
+
+### Basic Repo Layout
+- **Site root:** `site/` — Astro project; run `npm install`, `npm run dev`, `npm run build` here.
+- **Content:** `site/src/content/inventory/` — YAML item files consumed by `astro:content`.
+- **Images:** `site/public/images/` — static images served at `/images/...`.
 
 ### GitHub Data Access
 
