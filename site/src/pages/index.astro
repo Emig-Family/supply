@@ -98,7 +98,10 @@ inventory.sort((a, b) => (a.data.order || 1000000) - (b.data.order || 1000000));
 				</div>
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					{inventory.map((item) => (
-						<a href={`/inventory/${item.id}`} class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700 block">
+						<a href={`/inventory/${item.id}`} class="relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700 block">
+							{item.data.availability === 'Sold' && (
+								<div class="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold uppercase py-1 px-3 rounded-full shadow">Sold</div>
+							)}
 							<img src={item.data.images[0]} alt={item.data.title} class="w-full h-48 object-cover" />
 							<div class="p-6">
 								<h3 class="text-xl font-semibold mb-2 text-slate-900 dark:text-slate-100">{item.data.title}</h3>
