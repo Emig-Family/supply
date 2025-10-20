@@ -90,12 +90,21 @@ const item = await getEntry('inventory', slug);
           </div>
 
           <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-700">
-            <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">Request This Item</h2>
-            <p class="text-slate-600 dark:text-slate-300 mb-6">Interested in this item? Send us an inquiry and we'll work with you to find the perfect arrangement.</p>
-					<a href="tel:+18447216515" class="inline-block w-full text-center bg-blue-600 text-white hover:bg-blue-700 font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:-translate-y-1">
-						<span class="block">Call Us</span>
-						<span class="block text-sm opacity-90 mt-1">+1 (844) 721-6515</span>
-					</a>
+					<h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">Request This Item</h2>
+					{item.data.availability === 'Sold' ? (
+						<>
+							<p class="text-slate-600 dark:text-slate-300 mb-6">This item has been sold. If you'd like to be notified about similar items or need help finding an alternative, please call us.</p>
+							<a href="tel:+18447216515" class="inline-block w-full text-center bg-blue-600 text-white hover:bg-blue-700 font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:-translate-y-1">
+								<span class="block">Call Us</span>
+								<span class="block text-sm opacity-90 mt-1">+1 (844) 721-6515</span>
+							</a>
+						</>
+					) : (
+						<>
+							<p class="text-slate-600 dark:text-slate-300 mb-6">Interested in this item? Send us an inquiry and we'll work with you to find the perfect arrangement.</p>
+							<a href={`mailto:supply@emig.family?subject=Inquiry about ${item.data.title}`} class="inline-block w-full text-center bg-blue-600 text-white hover:bg-blue-700 font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:-translate-y-1">Send Inquiry</a>
+						</>
+					)}
           </div>
         </div>
       </div>
