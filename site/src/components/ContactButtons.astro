@@ -1,0 +1,17 @@
+---
+const { subject } = Astro.props;
+const email = 'supply@emig.family';
+const mailto = subject ? `mailto:${email}?subject=${encodeURIComponent(subject)}` : `mailto:${email}`;
+const phone = 'tel:+18447216515';
+---
+
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+  <a href={phone} class="flex-1 inline-block bg-blue-600 text-white hover:bg-blue-700 font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:-translate-y-1 text-center">
+    <span class="block">Call Us</span>
+    <span class="block text-sm opacity-90 mt-1">+1 (844) 721-6515</span>
+  </a>
+  <a href={mailto} class="flex-1 inline-block bg-green-600 text-white hover:bg-green-700 font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:-translate-y-1 text-center">
+    <span class="block">Email Us</span>
+    <span class="block text-sm opacity-90 mt-1">{email}</span>
+  </a>
+</div>
