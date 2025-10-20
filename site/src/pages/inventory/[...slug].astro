@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
 import '../../styles/global.css';
+import ContactButtons from '../../components/shared/ContactButtons.astro';
 
 export async function getStaticPaths() {
   const inventory = await getCollection('inventory');
@@ -94,22 +95,12 @@ const item = await getEntry('inventory', slug);
 					{item.data.availability === 'Sold' ? (
 						<>
 							<p class="text-slate-600 dark:text-slate-300 mb-6">This item has been sold. If you'd like to be notified about similar items or need help finding an alternative, please contact us.</p>
-						<import src="../../components/ContactButtons.astro" />
-						<ContactButtons subject={item.data.availability === 'Sold' ? undefined : `Inquiry about ${item.data.title}`} />
+							<ContactButtons />
 						</>
 					) : (
 						<>
-							<p class="text-slate-600 dark:text-slate-300 mb-6">Interested in this item? Send us an inquiry and we'll work with you to find the perfect arrangement.</p>
-							<div class="flex flex-col sm:flex-row items-center gap-4">
-								<a href={`tel:+18447216515`} class="flex-1 inline-block bg-blue-600 text-white hover:bg-blue-700 font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:-translate-y-1 text-center">
-									<span class="block">Call Us</span>
-									<span class="block text-sm opacity-90 mt-1">+1 (844) 721-6515</span>
-								</a>
-								<a href={`mailto:supply@emig.family?subject=Inquiry about ${item.data.title}`} class="flex-1 inline-block bg-green-600 text-white hover:bg-green-700 font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:-translate-y-1 text-center">
-									<span class="block">Email Us</span>
-									<span class="block text-sm opacity-90 mt-1">supply@emig.family</span>
-								</a>
-							</div>
+							<p class="text-slate-600 dark:text-slate-300 mb-6">Interested in this item? Call us and we'll work with you to find the perfect arrangement.</p>
+							<ContactButtons subject={`Inquiry about ${item.data.title}`} />
 						</>
 					)}
           </div>
