@@ -1,0 +1,9 @@
+repos:
+  - repo: local
+    hooks:
+      - id: strip-gps
+        name: Strip GPS EXIF data
+        entry: exiftool -overwrite_original -gps:all=
+        language: system
+        files: ^site/public/images/.*\.(jpg|jpeg|png|heic|webp)$
+

@@ -11,6 +11,7 @@ export const collections = {
       category: z.string().optional(),
       availability: z.string().optional(),
       order: z.number().optional(),
+      manualUrl: z.string().optional(),
     }),
   }),
 };

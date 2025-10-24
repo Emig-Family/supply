@@ -1,0 +1,9 @@
+title: Cabinet
+description: Wooden cabinet. Two shelves, three doors.
+images:
+  - /images/cabinet/1.jpg
+  - /images/cabinet/2.jpg
+  - /images/cabinet/3.jpg
+category: Furniture
+availability: Available
+order: 6
