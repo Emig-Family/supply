@@ -1,37 +1,25 @@
----
-const { excerpt = false } = Astro.props;
----
-<section class="mb-16">
-	<h2 class="text-3xl font-bold mb-12 text-center text-slate-800 dark:text-slate-200">How It Works</h2>
-	<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-		<div class="bg-white dark:bg-slate-800 p-8 rounded-xl text-center transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700">
-			<div class="text-4xl mb-4">📦</div>
-			<h3 class="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">1. Request an Item</h3>
-			<p class="text-slate-600 dark:text-slate-300">Tell us what you need from our inventory or describe your custom request.</p>
-		</div>
-
-		<div class="bg-white dark:bg-slate-800 p-8 rounded-xl text-center transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700">
-			<div class="text-4xl mb-4">💰</div>
-			<h3 class="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">2. Negotiate a Fair Price</h3>
-			<p class="text-slate-600 dark:text-slate-300">We collaborate to find a price that benefits everyone involved.</p>
-		</div>
-
-		<div class="bg-white dark:bg-slate-800 p-8 rounded-xl text-center transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700">
-			<div class="text-4xl mb-4">📅</div>
-			<h3 class="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">3. Schedule Delivery</h3>
-			<p class="text-slate-600 dark:text-slate-300">Choose a delivery time that fits perfectly into your schedule.</p>
-		</div>
-
-		<div class="bg-white dark:bg-slate-800 p-8 rounded-xl text-center transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700">
-			<div class="text-4xl mb-4">🚚</div>
-			<h3 class="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">4. Receive Your Item</h3>
-			<p class="text-slate-600 dark:text-slate-300">Your item arrives conveniently at your doorstep, hassle-free.</p>
-		</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+	<div class="bg-white dark:bg-slate-800 p-8 rounded-xl text-center transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700">
+		<div class="text-4xl mb-4">📦</div>
+		<h3 class="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">1. Request an Item</h3>
+		<p class="text-slate-600 dark:text-slate-300">Tell us what you need from our inventory or describe your custom request.</p>
 	</div>
 
-	{excerpt && (
-		<p class="text-center mt-6">
-			<a href="/how-it-works" class="text-blue-600 dark:text-blue-400 font-medium hover:underline">Read more →</a>
-		</p>
-	)}
-</section>
+	<div class="bg-white dark:bg-slate-800 p-8 rounded-xl text-center transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700">
+		<div class="text-4xl mb-4">💰</div>
+		<h3 class="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">2. Negotiate a Fair Price</h3>
+		<p class="text-slate-600 dark:text-slate-300">We collaborate to find a price that benefits everyone involved.</p>
+	</div>
+
+	<div class="bg-white dark:bg-slate-800 p-8 rounded-xl text-center transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700">
+		<div class="text-4xl mb-4">📅</div>
+		<h3 class="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">3. Schedule Delivery</h3>
+		<p class="text-slate-600 dark:text-slate-300">Choose a delivery time that fits perfectly into your schedule.</p>
+	</div>
+
+	<div class="bg-white dark:bg-slate-800 p-8 rounded-xl text-center transition-all duration-300 hover:-translate-y-2 border border-slate-100 dark:border-slate-700">
+		<div class="text-4xl mb-4">🚚</div>
+		<h3 class="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">4. Receive Your Item</h3>
+		<p class="text-slate-600 dark:text-slate-300">Your item arrives conveniently at your doorstep, hassle-free.</p>
+	</div>
+</div>
