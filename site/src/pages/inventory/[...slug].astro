@@ -1,18 +1,18 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
-import '../../styles/global.css';
-import ContactButtons from '../../components/shared/ContactButtons.astro';
-import Footer from '../../components/shared/Footer.astro';
+import { getCollection, getEntry } from 'astro:content'
+import '../../styles/global.css'
+import ContactButtons from '../../components/shared/ContactButtons.astro'
+import Footer from '../../components/shared/Footer.astro'
 
 export async function getStaticPaths() {
-  const inventory = await getCollection('inventory');
+  const inventory = await getCollection('inventory')
   return inventory.map((item) => ({
     params: { slug: item.id },
-  }));
+  }))
 }
 
-const { slug } = Astro.params;
-const item = await getEntry('inventory', slug);
+const { slug } = Astro.params
+const item = await getEntry('inventory', slug)
 ---
 
 <html lang="en">
@@ -25,231 +25,311 @@ const item = await getEntry('inventory', slug);
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#3b82f6" />
   </head>
-  <body class="bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors min-h-screen">
+  <body
+    class="bg-slate-100 text-slate-900 dark:bg-slate-900 dark:text-slate-100 transition-colors min-h-screen"
+  >
     <div class="container mx-auto px-4 py-12">
-      <header class="text-center mb-16 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 py-16 px-8 rounded-2xl border border-slate-100 dark:border-slate-700">
-        <a href="/" class="inline-block mb-6 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium">&larr; Back to Home</a>
-        <h1 class="text-5xl font-extrabold mb-6 tracking-tight text-slate-900 dark:text-slate-100">{item.data.title}</h1>
+      <header
+        class="text-center mb-16 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 py-16 px-8 rounded-2xl border border-slate-100 dark:border-slate-700"
+      >
+        <a
+          href="/"
+          class="inline-block mb-6 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
+          >&larr; Back to Home</a
+        >
+        <h1 class="text-5xl font-extrabold mb-6 tracking-tight text-slate-900 dark:text-slate-100">
+          {item.data.title}
+        </h1>
       </header>
 
       <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 mb-16">
-          <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700 aspect-square" data-images={JSON.stringify(item.data.images)} data-slug={item.slug} data-title={item.data.title}>
+        <div
+          class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700 aspect-square"
+          data-images={JSON.stringify(item.data.images)}
+          data-slug={item.slug}
+          data-title={item.data.title}
+        >
           <div class="relative w-full h-full group">
-             {item.data.images.map((image, imgIndex) => (
-               <img
-                 src={image}
-                 alt={`${item.data.title} image ${imgIndex + 1}`}
-                 class={`w-full h-full object-cover absolute inset-0 transition-opacity duration-500 cursor-pointer ${imgIndex === 0 ? 'opacity-100' : 'opacity-0'}`}
-                 id={`slide-${item.slug}-${imgIndex}`}
-                 data-index={imgIndex}
-               />
-             ))}
-            {item.data.images.length > 1 && (
-              <>
-                <button
-                  class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 hover:bg-opacity-100 text-slate-800 rounded-full p-2 transition-all duration-200 opacity-0 group-hover:opacity-100"
-                  id={`prev-${item.slug}`}
-                >
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                  </svg>
-                </button>
-                <button
-                  class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 hover:bg-opacity-100 text-slate-800 rounded-full p-2 transition-all duration-200 opacity-0 group-hover:opacity-100"
-                  id={`next-${item.slug}`}
-                >
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                  </svg>
-                </button>
-                <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
-                  {item.data.images.map((_, imgIndex) => (
-                    <button
-                      class={`w-4 h-4 rounded-full transition-all duration-200 ${imgIndex === 0 ? 'bg-blue-600' : 'bg-white bg-opacity-50 hover:bg-opacity-75'}`}
-                      id={`dot-${item.slug}-${imgIndex}`}
-                    ></button>
-                  ))}
-                </div>
-              </>
-            )}
+            {
+              item.data.images.map((image, imgIndex) => (
+                <img
+                  src={image}
+                  alt={`${item.data.title} image ${imgIndex + 1}`}
+                  class={`w-full h-full object-cover absolute inset-0 transition-opacity duration-500 cursor-pointer ${imgIndex === 0 ? 'opacity-100' : 'opacity-0'}`}
+                  id={`slide-${item.slug}-${imgIndex}`}
+                  data-index={imgIndex}
+                />
+              ))
+            }
+            {
+              item.data.images.length > 1 && (
+                <>
+                  <button
+                    class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 hover:bg-opacity-100 text-slate-800 rounded-full p-2 transition-all duration-200 opacity-0 group-hover:opacity-100"
+                    id={`prev-${item.slug}`}
+                  >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-75 hover:bg-opacity-100 text-slate-800 rounded-full p-2 transition-all duration-200 opacity-0 group-hover:opacity-100"
+                    id={`next-${item.slug}`}
+                  >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                  <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+                    {item.data.images.map((_, imgIndex) => (
+                      <button
+                        class={`w-4 h-4 rounded-full transition-all duration-200 ${imgIndex === 0 ? 'bg-blue-600' : 'bg-white bg-opacity-50 hover:bg-opacity-75'}`}
+                        id={`dot-${item.slug}-${imgIndex}`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )
+            }
           </div>
         </div>
 
         <div class="space-y-8">
-          <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-700">
-            <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">Product Details</h2>
+          <div
+            class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-700"
+          >
+            <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">
+              Product Details
+            </h2>
             <p class="text-slate-600 dark:text-slate-300 mb-6">{item.data.description}</p>
             <div>
-              <div class="flex justify-between items-center py-3 border-b border-slate-200 dark:border-slate-700">
+              <div
+                class="flex justify-between items-center py-3 border-b border-slate-200 dark:border-slate-700"
+              >
                 <span class="font-medium text-slate-700 dark:text-slate-300">Category</span>
-                <span class="text-slate-900 dark:text-slate-100">{item.data.category || 'N/A'}</span>
+                <span class="text-slate-900 dark:text-slate-100">{item.data.category || 'N/A'}</span
+                >
               </div>
-              <div class="flex justify-between items-center py-3 border-b border-slate-200 dark:border-slate-700">
+              <div
+                class="flex justify-between items-center py-3 border-b border-slate-200 dark:border-slate-700"
+              >
                 <span class="font-medium text-slate-700 dark:text-slate-300">Availability</span>
-                <span class={`font-medium ${item.data.availability === 'Sold' ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>{item.data.availability || 'N/A'}</span>
+                <span
+                  class={`font-medium ${item.data.availability === 'Sold' ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}
+                  >{item.data.availability || 'N/A'}</span
+                >
               </div>
-              {item.data.manualUrl != null && 
-              <div class="flex justify-between items-center py-3 border-b border-slate-200 dark:border-slate-700">
-                <span class="font-medium text-slate-700 dark:text-slate-300">Manual</span>
-                <a href={item.data.manualUrl} class="text-blue-600 dark:text-blue-400 font-medium" target="_blank" rel="noopener noreferrer">
-                  View →
-                </a>
-              </div>
+              {
+                item.data.manualUrl != null && (
+                  <div class="flex justify-between items-center py-3 border-b border-slate-200 dark:border-slate-700">
+                    <span class="font-medium text-slate-700 dark:text-slate-300">Manual</span>
+                    <a
+                      href={item.data.manualUrl}
+                      class="text-blue-600 dark:text-blue-400 font-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View →
+                    </a>
+                  </div>
+                )
               }
             </div>
           </div>
 
-          <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-700">
-					{item.data.availability === 'Sold' ? (<h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">Sold</h2>) : (<h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">Request This Item</h2>)}
-					{item.data.availability === 'Sold' ? (
-						<>
-							<p class="text-slate-600 dark:text-slate-300 mb-6">This item has been sold. If you'd like to be notified about similar items or need help finding an alternative, please contact us.</p>
-							<ContactButtons subject={`Inquiry about similar items to ${item.data.title}`} />
-						</>
-					) : (
-						<>
-							<p class="text-slate-600 dark:text-slate-300 mb-6">Interested in this item? Call us and we'll work with you to find the perfect arrangement.</p>
-							<ContactButtons subject={`Inquiry about ${item.data.title}`} />
-						</>
-					)}
+          <div
+            class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-100 dark:border-slate-700"
+          >
+            {
+              item.data.availability === 'Sold' ? (
+                <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">Sold</h2>
+              ) : (
+                <h2 class="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">
+                  Request This Item
+                </h2>
+              )
+            }
+            {
+              item.data.availability === 'Sold' ? (
+                <>
+                  <p class="text-slate-600 dark:text-slate-300 mb-6">
+                    This item has been sold. If you'd like to be notified about similar items or
+                    need help finding an alternative, please contact us.
+                  </p>
+                  <ContactButtons subject={`Inquiry about similar items to ${item.data.title}`} />
+                </>
+              ) : (
+                <>
+                  <p class="text-slate-600 dark:text-slate-300 mb-6">
+                    Interested in this item? Call us and we'll work with you to find the perfect
+                    arrangement.
+                  </p>
+                  <ContactButtons subject={`Inquiry about ${item.data.title}`} />
+                </>
+              )
+            }
           </div>
         </div>
       </div>
 
-     <Footer />
+      <Footer />
+    </div>
 
-     <!-- Image Viewer Modal -->
-     <div id="image-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
-       <div class="relative max-w-4xl max-h-full p-4">
-         <img id="modal-image" src="" alt="" class="max-w-full max-h-full object-contain" />
-         <button id="modal-prev" class="absolute left-6 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75">
-           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-           </svg>
-         </button>
-         <button id="modal-next" class="absolute right-6 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75">
-           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-           </svg>
-         </button>
-       </div>
-     </div>
+    <!-- Image Viewer Modal -->
+    <div
+      id="image-modal"
+      class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden"
+    >
+      <div class="relative max-w-4xl max-h-full p-4">
+        <img id="modal-image" src="" alt="" class="max-w-full max-h-full object-contain" />
+        <button
+          id="modal-prev"
+          class="absolute left-6 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button
+          id="modal-next"
+          class="absolute right-6 top-1/2 transform -translate-y-1/2 text-white bg-black bg-opacity-50 rounded-full p-2 hover:bg-opacity-75"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
 
-     <script>
+    <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const container = document.querySelector('[data-images]');
-        const slug = container.dataset.slug;
-        const images = JSON.parse(container.dataset.images);
-        const title = container.dataset.title;
-        let currentIndex = 0;
+        const container = document.querySelector('[data-images]')
+        const slug = container.dataset.slug
+        const images = JSON.parse(container.dataset.images)
+        const title = container.dataset.title
+        let currentIndex = 0
 
         function updateCarousel() {
           images.forEach((_, index) => {
-            const img = document.getElementById(`slide-${slug}-${index}`);
+            const img = document.getElementById(`slide-${slug}-${index}`)
             if (img) {
-              img.classList.toggle('opacity-100', index === currentIndex);
-              img.classList.toggle('opacity-0', index !== currentIndex);
+              img.classList.toggle('opacity-100', index === currentIndex)
+              img.classList.toggle('opacity-0', index !== currentIndex)
             }
-            const dot = document.getElementById(`dot-${slug}-${index}`);
+            const dot = document.getElementById(`dot-${slug}-${index}`)
             if (dot) {
-              dot.classList.toggle('bg-blue-600', index === currentIndex);
-              dot.classList.toggle('bg-white', index !== currentIndex);
-              dot.classList.toggle('bg-opacity-50', index !== currentIndex);
+              dot.classList.toggle('bg-blue-600', index === currentIndex)
+              dot.classList.toggle('bg-white', index !== currentIndex)
+              dot.classList.toggle('bg-opacity-50', index !== currentIndex)
             }
-          });
+          })
         }
 
-        const prevBtn = document.getElementById(`prev-${slug}`);
-        const nextBtn = document.getElementById(`next-${slug}`);
+        const prevBtn = document.getElementById(`prev-${slug}`)
+        const nextBtn = document.getElementById(`next-${slug}`)
 
         if (prevBtn) {
           prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            updateCarousel();
-          });
+            currentIndex = (currentIndex - 1 + images.length) % images.length
+            updateCarousel()
+          })
         }
 
         if (nextBtn) {
           nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % images.length;
-            updateCarousel();
-          });
+            currentIndex = (currentIndex + 1) % images.length
+            updateCarousel()
+          })
         }
 
         images.forEach((_, index) => {
-          const dot = document.getElementById(`dot-${slug}-${index}`);
+          const dot = document.getElementById(`dot-${slug}-${index}`)
           if (dot) {
             dot.addEventListener('click', () => {
-              currentIndex = index;
-              updateCarousel();
-            });
+              currentIndex = index
+              updateCarousel()
+            })
           }
-        });
+        })
 
         // Image viewer modal
-        const modal = document.getElementById('image-modal');
-        const modalImage = document.getElementById('modal-image');
-        const modalPrev = document.getElementById('modal-prev');
-        const modalNext = document.getElementById('modal-next');
-        let modalIndex = 0;
+        const modal = document.getElementById('image-modal')
+        const modalImage = document.getElementById('modal-image')
+        const modalPrev = document.getElementById('modal-prev')
+        const modalNext = document.getElementById('modal-next')
+        let modalIndex = 0
 
         function openModal(index) {
-          modalIndex = index;
-          modalImage.src = images[modalIndex];
-          modalImage.alt = `${title} image ${modalIndex + 1}`;
-          modal.classList.remove('hidden');
-          document.body.style.overflow = 'hidden';
+          modalIndex = index
+          modalImage.src = images[modalIndex]
+          modalImage.alt = `${title} image ${modalIndex + 1}`
+          modal.classList.remove('hidden')
+          document.body.style.overflow = 'hidden'
         }
 
         function closeModal() {
-          modal.classList.add('hidden');
-          document.body.style.overflow = '';
+          modal.classList.add('hidden')
+          document.body.style.overflow = ''
         }
 
         function updateModal() {
-          modalImage.src = images[modalIndex];
-          modalImage.alt = `${title} image ${modalIndex + 1}`;
+          modalImage.src = images[modalIndex]
+          modalImage.alt = `${title} image ${modalIndex + 1}`
         }
 
         images.forEach((_, index) => {
-          const img = document.getElementById(`slide-${slug}-${index}`);
+          const img = document.getElementById(`slide-${slug}-${index}`)
           if (img) {
             img.addEventListener('click', () => {
-              openModal(index);
-            });
+              openModal(index)
+            })
           }
-        });
-
+        })
 
         modalPrev.addEventListener('click', () => {
-          modalIndex = (modalIndex - 1 + images.length) % images.length;
-          updateModal();
-        });
+          modalIndex = (modalIndex - 1 + images.length) % images.length
+          updateModal()
+        })
         modalNext.addEventListener('click', () => {
-          modalIndex = (modalIndex + 1) % images.length;
-          updateModal();
-        });
+          modalIndex = (modalIndex + 1) % images.length
+          updateModal()
+        })
 
         modal.addEventListener('click', (e) => {
           if (e.target === modal) {
-            closeModal();
+            closeModal()
           }
-        });
+        })
 
         document.addEventListener('keydown', (e) => {
           if (!modal.classList.contains('hidden')) {
             if (e.key === 'Escape') {
-              closeModal();
+              closeModal()
             } else if (e.key === 'ArrowLeft') {
-              modalIndex = (modalIndex - 1 + images.length) % images.length;
-              updateModal();
+              modalIndex = (modalIndex - 1 + images.length) % images.length
+              updateModal()
             } else if (e.key === 'ArrowRight') {
-              modalIndex = (modalIndex + 1) % images.length;
-              updateModal();
+              modalIndex = (modalIndex + 1) % images.length
+              updateModal()
             }
           }
-        });
-      });
+        })
+      })
     </script>
   </body>
 </html>
