@@ -1,9 +1,9 @@
-import { glob } from 'astro/loaders';
-import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders'
+import { defineCollection, z } from 'astro:content'
 
 export const collections = {
   inventory: defineCollection({
-    loader: glob({ pattern: "*.yaml", base: "src/content/inventory/" }),
+    loader: glob({ pattern: '*.yaml', base: 'src/content/inventory/' }),
     schema: z.object({
       title: z.string(),
       description: z.string(),
@@ -14,4 +14,4 @@ export const collections = {
       manualUrl: z.string().optional(),
     }),
   }),
-};
+}
