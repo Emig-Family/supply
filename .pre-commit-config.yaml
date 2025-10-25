@@ -6,4 +6,8 @@ repos:
         entry: exiftool -overwrite_original -gps:all=
         language: system
         files: ^site/public/images/.*\.(jpg|jpeg|png|heic|webp)$
-
+      - id: prettier
+        name: Run Prettier
+        entry: npm exec -- prettier --write
+        language: node
+        files: \.(js|ts|jsx|tsx|json|css|scss|md|astro|yaml|yml)$
