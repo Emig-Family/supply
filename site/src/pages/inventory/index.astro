@@ -2,6 +2,7 @@
 import '../../styles/global.css';
 import ContactButtons from '../../components/shared/ContactButtons.astro';
 import InventoryList from '../../components/shared/InventoryList.astro';
+import Footer from '../../components/shared/Footer.astro';
 ---
 <html lang="en">
 	<head>
@@ -20,9 +21,7 @@ import InventoryList from '../../components/shared/InventoryList.astro';
 
 			<InventoryList />
 
-			<footer class="text-center mt-20 py-8 border-t border-gray-200 dark:border-gray-700">
-				<p class="text-sm text-gray-500 dark:text-gray-400">Built by <a href="https://kwila.cloud" class="text-blue-600 dark:text-blue-400 font-medium">Kwila Cloud</a></p>
-			</footer>
+			<Footer />
 		</div>
 	</body>
 </html>
