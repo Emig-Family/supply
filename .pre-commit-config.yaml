@@ -8,6 +8,7 @@ repos:
         files: ^site/public/images/.*\.(jpg|jpeg|png|heic|webp)$
       - id: prettier
         name: Run Prettier
-        entry: npm exec -- prettier --write
+        entry: bash -c 'cd site && npm exec -- prettier --write .'
+        pass_filenames: false
         language: node
         files: \.(js|ts|jsx|tsx|json|css|scss|md|astro|yaml|yml)$
