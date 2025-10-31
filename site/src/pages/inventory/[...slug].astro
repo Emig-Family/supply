@@ -3,6 +3,8 @@ import '../../styles/global.css'
 import ContactButtons from '../../components/shared/ContactButtons.astro'
 import Footer from '../../components/shared/Footer.astro'
 
+export const prerender = false
+
 // We use runtime D1 to fetch item data
 const { slug } = Astro.params
 let item = null
