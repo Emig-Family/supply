@@ -1,4 +1,17 @@
 {
+  // Entry point built by Astro
+  "main": "dist/_worker.js/index.js",
   "name": "emig-supply",
-  "compatibility_date": "2025-10-01",
+  // Update compatibility date as needed
+  "compatibility_date": "2025-10-31",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./dist",
+  },
+  "kv_namespaces": [],
+  "vars": {},
+  "observability": {
+    "enabled": true,
+  },
 }
