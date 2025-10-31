@@ -1,13 +1,9 @@
 ---
 import '../styles/global.css'
-import { getCollection } from 'astro:content'
 import ContactButtons from '../components/shared/ContactButtons.astro'
 import HowItWorks from '../components/shared/HowItWorks.astro'
 import InventoryList from '../components/shared/InventoryList.astro'
 import Footer from '../components/shared/Footer.astro'
-
-const inventory = await getCollection('inventory')
-inventory.sort((a, b) => (a.data.order || 1000000) - (b.data.order || 1000000))
 ---
 
 <html lang="en">
