@@ -1,17 +1,25 @@
 {
-  // Entry point built by Astro
-  "main": "dist/_worker.js/index.js",
-  "name": "emig-supply",
-  // Update compatibility date as needed
-  "compatibility_date": "2025-10-31",
-  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
-  "assets": {
-    "binding": "ASSETS",
-    "directory": "./dist",
-  },
-  "kv_namespaces": [],
-  "vars": {},
-  "observability": {
-    "enabled": true,
-  },
+	// Entry point built by Astro
+	"main": "dist/_worker.js/index.js",
+	"name": "emig-supply",
+	// Update compatibility date as needed
+	"compatibility_date": "2025-10-31",
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": "./dist",
+	},
+	"kv_namespaces": [
+		{
+			"binding": "SESSION",
+			"id": "1a99a42bb54f4924a4e4af29ac361f28"
+		}
+	],
+	"vars": {},
+	"observability": {
+		"enabled": true
+	}
 }
