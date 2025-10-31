@@ -8,16 +8,16 @@ export async function POST({ request, locals }) {
       })
     }
 
-    const R2 = env.R2
-    const DB = env.DB
+    const R2 = env.IMAGE_BUCKET
+    const DB = env.SUPPLY_DB
     if (!R2) {
-      return new Response(JSON.stringify({ error: 'R2 binding not configured' }), {
+      return new Response(JSON.stringify({ error: 'R2 IMAGE_BUCKET binding not configured' }), {
         status: 500,
         headers: { 'content-type': 'application/json' },
       })
     }
     if (!DB) {
-      return new Response(JSON.stringify({ error: 'D1 binding not configured' }), {
+      return new Response(JSON.stringify({ error: 'D1 SUPPLY_DB binding not configured' }), {
         status: 500,
         headers: { 'content-type': 'application/json' },
       })
