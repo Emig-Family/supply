@@ -5,6 +5,19 @@ import ContactButtons from '../../components/shared/ContactButtons.astro'
 import Footer from '../../components/shared/Footer.astro'
 
 export async function getStaticPaths() {
+  // Try to enumerate from D1 first
+  try {
+    const runtime = Astro.locals?.runtime
+    const env = runtime?.env
+    if (env?.DB) {
+      const res = await env.DB.prepare('SELECT id FROM inventory').all()
+      const rows = res?.results || []
+      return rows.map((r) => ({ params: { slug: r.id } }))
+    }
+  } catch (e) {
+    // fall back to content
+  }
+
   const inventory = await getCollection('inventory')
   return inventory.map((item) => ({
     params: { slug: item.id },
@@ -12,7 +25,38 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params
-const item = await getEntry('inventory', slug)
+
+let item
+// Try to load from D1
+try {
+  const runtime = Astro.locals?.runtime
+  const env = runtime?.env
+  if (env?.DB) {
+    const res = await env.DB.prepare('SELECT * FROM inventory WHERE id=?').bind(slug).first()
+    if (res) {
+      item = {
+        id: res.id,
+        data: {
+          title: res.title,
+          description: res.description,
+          images: res.images ? JSON.parse(res.images) : [],
+          category: res.category,
+          availability: res.availability,
+          order: res.order,
+          manualUrl: res.manualUrl,
+        },
+        slug: res.id,
+      }
+    }
+  }
+} catch (e) {
+  // ignore
+}
+
+if (!item) {
+  const entry = await getEntry('inventory', slug)
+  item = entry
+}
 ---
 
 <html lang="en">
