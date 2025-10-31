@@ -11,12 +11,19 @@ try {
   if (env?.DB) {
     const res = await env.DB.prepare('SELECT * FROM inventory WHERE id = ?').bind(slug).first()
     if (res) {
+      // load images for this item
+      const imgsRes = await env.DB.prepare(
+        'SELECT url FROM images WHERE inventory_id = ? ORDER BY idx ASC'
+      )
+        .bind(slug)
+        .all()
+      const imgs = (imgsRes?.results || []).map((r) => r.url)
       item = {
         id: res.id,
         data: {
           title: res.title,
           description: res.description,
-          images: res.images ? JSON.parse(res.images) : [],
+          images: imgs,
           category: res.category,
           availability: res.availability,
           order: res.order,

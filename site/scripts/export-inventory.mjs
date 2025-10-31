@@ -55,12 +55,16 @@ sqlLines.push(');')
 for (const r of rows) {
   const vals = [r.id, r.title, r.description, r.category, r.availability, r.order, r.manualUrl]
   const esc = (v) => (v === null || v === undefined ? 'NULL' : `'${String(v).replace(/'/g, "''")}'`)
-  sqlLines.push(`INSERT OR REPLACE INTO inventory (id, title, description, category, availability, "order", manualUrl) VALUES (${vals.map(esc).join(', ')});`)
+  sqlLines.push(
+    `INSERT OR REPLACE INTO inventory (id, title, description, category, availability, "order", manualUrl) VALUES (${vals.map(esc).join(', ')});`
+  )
 
   // insert images as separate rows
   const imgs = JSON.parse(r.images || '[]')
   imgs.forEach((url, i) => {
-    sqlLines.push(`INSERT INTO images (inventory_id, url, idx) VALUES ('${r.id.replace(/'/g, "''")}', '${String(url).replace(/'/g, "''")}', ${i});`)
+    sqlLines.push(
+      `INSERT INTO images (inventory_id, url, idx) VALUES ('${r.id.replace(/'/g, "''")}', '${String(url).replace(/'/g, "''")}', ${i});`
+    )
   })
 }
 

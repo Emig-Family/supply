@@ -8,12 +8,28 @@ try {
     const env = Astro.locals?.runtime?.env
     if (env?.DB) {
       const res = await env.DB.prepare('SELECT * FROM inventory ORDER BY "order" ASC').all()
-      inventory = (res?.results || []).map((row) => ({
+      const rows = res?.results || []
+      // load images for all items in bulk
+      const ids = rows.map((r) => r.id)
+      let imagesMap = {}
+      if (ids.length) {
+        const placeholders = ids.map(() => '?').join(',')
+        const imgsRes = await env.DB.prepare(
+          `SELECT inventory_id, url, idx FROM images WHERE inventory_id IN (${placeholders}) ORDER BY inventory_id, idx ASC`
+        )
+          .bind(...ids)
+          .all()
+        for (const imgRow of imgsRes.results || []) {
+          imagesMap[imgRow.inventory_id] = imagesMap[imgRow.inventory_id] || []
+          imagesMap[imgRow.inventory_id].push(imgRow.url)
+        }
+      }
+      inventory = rows.map((row) => ({
         id: row.id,
         data: {
           title: row.title,
           description: row.description,
-          images: row.images ? JSON.parse(row.images) : [],
+          images: imagesMap[row.id] || [],
           category: row.category,
           availability: row.availability,
           order: row.order,
