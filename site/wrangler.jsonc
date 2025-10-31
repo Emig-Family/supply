@@ -17,9 +17,9 @@
   ],
   "d1_databases": [
     {
-      "binding": "DB",
+      "binding": "SUPPLY_DB",
       "database_name": "SUPPLY_DB",
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID",
+      "database_id": "fc14ff71-d47d-4bb7-a183-f964ebe39f5a",
     },
   ],
   "vars": {},

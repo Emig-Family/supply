@@ -1,15 +1,12 @@
 ---
 const { items = null, excerpt = false } = Astro.props
-import { getCollection } from 'astro:content'
 let inventory = items
 
-// Try to load from Cloudflare D1 (runtime DB) when available.
-if (!inventory) {
-  try {
-    const runtime = Astro.locals?.runtime
-    const env = runtime?.env
+// Load from Cloudflare D1 at runtime. If unavailable, render empty list.
+try {
+  if (!inventory) {
+    const env = Astro.locals?.runtime?.env
     if (env?.DB) {
-      // D1 rows expected to have: id, title, description, images (JSON array), category, availability, "order", manualUrl
       const res = await env.DB.prepare('SELECT * FROM inventory ORDER BY "order" ASC').all()
       inventory = (res?.results || []).map((row) => ({
         id: row.id,
@@ -25,16 +22,13 @@ if (!inventory) {
         slug: row.id,
       }))
     }
-  } catch (err) {
-    // If D1 fails, fall back to astro content
-    inventory = null
   }
+} catch (err) {
+  // swallow — show no items if DB is unavailable
+  inventory = inventory || []
 }
 
-if (!inventory) {
-  inventory = await getCollection('inventory')
-}
-
+inventory = inventory || []
 inventory.sort((a, b) => (a.data.order || 1000000) - (b.data.order || 1000000))
 const displayItems = excerpt ? inventory.slice(0, 6) : inventory
 ---
