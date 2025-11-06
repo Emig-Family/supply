@@ -249,6 +249,9 @@ if (!item) {
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const container = document.querySelector('[data-images]')
+        if (container == null) {
+          return
+        }
         const slug = container.dataset.slug
         const images = JSON.parse(container.dataset.images)
         const title = container.dataset.title

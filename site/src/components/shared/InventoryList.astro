@@ -10,8 +10,8 @@ try {
       const res = await env.DB.prepare('SELECT * FROM inventory ORDER BY "order" ASC').all()
       const rows = res?.results || []
       // load images for all items in bulk
-      const ids = rows.map((r) => r.id)
-      let imagesMap = {}
+      const ids = rows.map((r: { id: number }): number => r.id)
+      let imagesMap: Record<string, string[]> = {}
       if (ids.length) {
         const placeholders = ids.map(() => '?').join(',')
         const imgsRes = await env.DB.prepare(
@@ -24,19 +24,29 @@ try {
           imagesMap[imgRow.inventory_id].push(imgRow.url)
         }
       }
-      inventory = rows.map((row) => ({
-        id: row.id,
-        data: {
-          title: row.title,
-          description: row.description,
-          images: imagesMap[row.id] || [],
-          category: row.category,
-          availability: row.availability,
-          order: row.order,
-          manualUrl: row.manualUrl,
-        },
-        slug: row.id,
-      }))
+      inventory = rows.map(
+        (row: {
+          id: string | number
+          title: any
+          description: any
+          category: any
+          availability: any
+          order: any
+          manualUrl: any
+        }) => ({
+          id: row.id,
+          data: {
+            title: row.title,
+            description: row.description,
+            images: imagesMap[row.id] || [],
+            category: row.category,
+            availability: row.availability,
+            order: row.order,
+            manualUrl: row.manualUrl,
+          },
+          slug: row.id,
+        })
+      )
     }
   }
 } catch (err) {
