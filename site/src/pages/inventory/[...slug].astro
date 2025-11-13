@@ -1,18 +1,48 @@
 ---
-import { getCollection, getEntry } from 'astro:content'
 import '../../styles/global.css'
 import ContactButtons from '../../components/shared/ContactButtons.astro'
 import Footer from '../../components/shared/Footer.astro'
 
-export async function getStaticPaths() {
-  const inventory = await getCollection('inventory')
-  return inventory.map((item) => ({
-    params: { slug: item.id },
-  }))
+export const prerender = false
+
+// We use runtime D1 to fetch item data
+const { slug } = Astro.params
+let item = null
+try {
+  const env = Astro.locals?.runtime?.env
+  if (env?.DB) {
+    const res = await env.DB.prepare('SELECT * FROM inventory WHERE id = ?').bind(slug).first()
+    if (res) {
+      // load images for this item
+      const imgsRes = await env.DB.prepare(
+        'SELECT url FROM images WHERE inventory_id = ? ORDER BY idx ASC'
+      )
+        .bind(slug)
+        .all()
+      const imgs = (imgsRes?.results || []).map((r) => r.url)
+      item = {
+        id: res.id,
+        data: {
+          title: res.title,
+          description: res.description,
+          images: imgs,
+          category: res.category,
+          availability: res.availability,
+          order: res.order,
+          manualUrl: res.manualUrl,
+        },
+        slug: res.id,
+      }
+    }
+  }
+} catch (e) {
+  // swallow — item stays null
 }
 
-const { slug } = Astro.params
-const item = await getEntry('inventory', slug)
+if (!item) {
+  // Render a 404 through Astro's mechanism for SSR
+  throw new Error(`Item not found: ${slug}`)
+}
 ---
 
 <html lang="en">
@@ -219,6 +249,9 @@ const item = await getEntry('inventory', slug)
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         const container = document.querySelector('[data-images]')
+        if (container == null) {
+          return
+        }
         const slug = container.dataset.slug
         const images = JSON.parse(container.dataset.images)
         const title = container.dataset.title
