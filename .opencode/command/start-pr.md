@@ -11,16 +11,17 @@ Use the user input as the issue number.
 
 If the user input is empty or invalid, prompt the user for the issue number.
 
-1. Check the spec for the given issue in `specs/`
-1. Determine the next incomplete section from the Task List
-1. Create branch using format `{issue-number}-{section-name}`
-   - DO NOT create branch if already in the correct branch for the issue number and section name
-1. Research codebase to understand what's needed for the section
-1. Ask the user any clarifying questions needed to implement the section
-1. Explain the plan to the user for completing the section
-1. Refine plan based on user feedback
-1. Start implementing the plan when the user approves
+Required behavior and confirmation flow
 
-Example usage:
-- User: `/start-pr 7`
-- Agent: Checks `specs/7-data-persistence.md`, finds next incomplete section, creates branch like `7-storage-interface-updates`, researches requirements, explains plan
+1. Read the spec for the given issue in `specs/` and determine the next incomplete section from the Task List.
+2. Branch creation rules (agents MUST NOT ask the user about branch behavior):
+   - Compute branch as `{issue-number}-{slug(section-header)}` where `slug()` lowercases the header, replaces any non‑alphanumeric sequence with `-`, collapses duplicate `-`, and trims leading/trailing `-`.
+   - If current branch equals OR is very similar to the computed name, do nothing; otherwise create and switch with `git checkout -b "<branch>"`.
+   - If creating/switching would overwrite uncommitted work, warn and request confirmation.
+3. Research the codebase to gather information about the change.
+4. Ask the user clarifying questions.
+   - Clearly number the questions.
+   - Clearly letter the options for each question.
+5. Update the Task List section with any new updates based on your research and the user's answers.
+6. Explain the current Task List section to the user.
+7. When the Task List section is approved by the user, instruct the user to run `/do-pr` to begin implementing the changes. Do not use the word “proceed” as the final prompt — always reference `/do-pr`.
